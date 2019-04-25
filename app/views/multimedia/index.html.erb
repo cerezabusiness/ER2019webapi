@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Multimedia</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Url</th>
+      <th>Multimedia type</th>
+      <th>Event</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @multimedia.each do |multimedium| %>
+      <tr>
+        <td><%= multimedium.name %></td>
+        <td><%= multimedium.url %></td>
+        <td><%= multimedium.multimedia_type %></td>
+        <td><%= multimedium.event %></td>
+        <td><%= link_to 'Show', multimedium %></td>
+        <td><%= link_to 'Edit', edit_multimedium_path(multimedium) %></td>
+        <td><%= link_to 'Destroy', multimedium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Multimedium', new_multimedium_path %>

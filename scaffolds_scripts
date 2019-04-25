@@ -1,0 +1,29 @@
+rails g scaffold company name:string
+rails g scaffold event name email phone
+rails g scaffold profile profile
+rails g scaffold person name picture description:text phone email city_id company:references
+rails g model persons_event person:references event:references profile:references
+rails g scaffold multimedia_type multimedia_type
+rails g scaffold multimedium name url multimedia_type:references event:references
+rails g scaffold information title content:text event:references
+rails g scaffold place name address city_id
+rails g model places_event place:references event:references
+rails g scaffold faq question:text answer:text
+rails g scaffold time_range start_time:time end_time:time
+rails g scaffold activity name description:text date time_range:references:uniq places_event:references
+rails g scaffold event_date date:date event:references
+
+rails d scaffold company 
+rails d scaffold event 
+rails d scaffold profile 
+rails d scaffold  person name picture  
+rails d model persons_event 
+rails d scaffold multimedia_type 
+rails d scaffold multimedium
+rails d scaffold information
+rails d scaffold place
+rails d model places_event 
+rails d scaffold faq 
+rails d scaffold time_range 
+rails d scaffold activity 
+rails d scaffold event_date 

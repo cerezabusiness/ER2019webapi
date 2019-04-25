@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Time Ranges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @time_ranges.each do |time_range| %>
+      <tr>
+        <td><%= time_range.start_time %></td>
+        <td><%= time_range.end_time %></td>
+        <td><%= link_to 'Show', time_range %></td>
+        <td><%= link_to 'Edit', edit_time_range_path(time_range) %></td>
+        <td><%= link_to 'Destroy', time_range, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Time Range', new_time_range_path %>
