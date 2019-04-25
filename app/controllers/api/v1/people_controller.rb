@@ -5,7 +5,7 @@ class Api::V1::PeopleController < ApplicationController
   def index
     @people = Person.all
 
-    render json: @people
+    render json: @people,include: {:company=>{:only=>:name}}
   end
 
   # GET /people/1
