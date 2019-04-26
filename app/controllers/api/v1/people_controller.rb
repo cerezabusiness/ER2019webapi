@@ -46,6 +46,6 @@ class Api::V1::PeopleController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def person_params
-      params.permit(:name, :picture, :description, :phone, :email, :city_id, :company_id,:title)
+      params.require(:person).permit(:name, :picture, :description, :phone, :email, :city_id, :company_id,:title)
     end
 end
