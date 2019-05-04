@@ -12,6 +12,7 @@ rails g scaffold faq question:text answer:text
 rails g scaffold time_range start_time:time end_time:time
 rails g scaffold activity name description:text date time_range:references:uniq places_event:references
 rails g scaffold event_date date:date event:references
+rails g model activities_person activity:references person:references
 
 rails d scaffold company 
 rails d scaffold event 
@@ -27,3 +28,4 @@ rails d scaffold faq
 rails d scaffold time_range 
 rails d scaffold activity 
 rails d scaffold event_date 
+rails d model activities_person
