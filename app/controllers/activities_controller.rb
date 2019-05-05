@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   def index
     if @event != nil
-      @activities = @event.activities.all
+      @activities = @event.activities.order(:start_time)
     else
       @activities = Activity.all
     end
