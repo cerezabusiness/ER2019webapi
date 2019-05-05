@@ -35,8 +35,18 @@ class ActivitiesController < ApplicationController
     @activity.event_date_id = activity_params[:event_date_id]
     @activity.name = activity_params[:name]
     @activity.description = activity_params[:description]
-    @activity.start_time = activity_params[:start_time]
-    @activity.start_time = activity_params[:end_time]
+    @activity.start_time = Time.local(activity_params["start_time(1i)"].to_i,
+                                      activity_params["start_time(2i)"].to_i,
+                                      activity_params["start_time(3i)"].to_i,
+                                      activity_params["start_time(4i)"].to_i,
+                                      activity_params["start_time(5i)"].to_i)
+
+    @activity.end_time = Time.local(activity_params["end_time(1i)"].to_i,
+                                    activity_params["end_time(2i)"].to_i,
+                                    activity_params["end_time(3i)"].to_i,
+                                    activity_params["end_time(4i)"].to_i,
+                                    activity_params["end_time(5i)"].to_i)
+
     @activity.places_event_id = places_event.id
 
     redirect_to = [@event, @activity]
@@ -60,8 +70,18 @@ class ActivitiesController < ApplicationController
     @activity.event_date_id = activity_params[:event_date_id]
     @activity.name = activity_params[:name]
     @activity.description = activity_params[:description]
-    @activity.start_time = activity_params[:start_time]
-    @activity.start_time = activity_params[:end_time]
+    @activity.start_time = Time.local(activity_params["start_time(1i)"].to_i,
+                                      activity_params["start_time(2i)"].to_i,
+                                      activity_params["start_time(3i)"].to_i,
+                                      activity_params["start_time(4i)"].to_i - 5,
+                                      activity_params["start_time(5i)"].to_i)
+
+    @activity.end_time = Time.local(activity_params["end_time(1i)"].to_i,
+                                    activity_params["end_time(2i)"].to_i,
+                                    activity_params["end_time(3i)"].to_i,
+                                    activity_params["end_time(4i)"].to_i - 5,
+                                    activity_params["end_time(5i)"].to_i)
+
     @activity.places_event_id = places_event.id
 
     respond_to do |format|

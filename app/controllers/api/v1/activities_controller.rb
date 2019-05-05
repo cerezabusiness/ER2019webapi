@@ -8,6 +8,7 @@ class Api::V1::ActivitiesController < ApplicationController
     else
       @activities = Activity.all
     end
+    render json: @activities
   end
 
   # GET /activities/1

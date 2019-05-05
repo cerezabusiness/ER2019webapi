@@ -12,12 +12,12 @@
 
 <p>
   <strong>Start time:</strong>
-  <%= @activity.start_time %>
+  <%= @activity.start_time.strftime('%H:%M') %>
 </p>
 
 <p>
   <strong>End time:</strong>
-  <%= @activity.end_time %>
+  <%= @activity.end_time.strftime('%H:%M') %>
 </p>
 
 <p>

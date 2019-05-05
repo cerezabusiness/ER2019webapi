@@ -21,8 +21,8 @@
       <tr>
         <td><%= activity.name %></td>
         <td><%= activity.description %></td>
-        <td><%= activity.start_time %></td>
-        <td><%= activity.end_time %></td>
+        <td><%= activity.start_time.strftime('%H:%M') %></td>
+        <td><%= activity.end_time.strftime('%H:%M') %></td>
         <td><%= activity.event_date.date %></td>
         <td><%= activity.places_event.event.name %></td>
         <td><%= activity.places_event.place.name %></td>
