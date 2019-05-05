@@ -1,6 +1,6 @@
 class Api::V1::PlacesController < ApplicationController
   before_action :set_place, only: [:show, :update, :destroy]
-  befor_action :set_event
+  before_action :set_event
   # GET /places
   def index
     if @event != nil
