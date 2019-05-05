@@ -27,9 +27,10 @@ Rails.application.routes.draw do
       resources :events do
         resources :places
         resources :event_dates
-            end
+      end
     end
   end
+  root to: "events#index"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
