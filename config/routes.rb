@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       resources :events do
         resources :places
         resources :event_dates
+        resources :activities
       end
     end
   end
