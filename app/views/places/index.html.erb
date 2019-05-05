@@ -26,3 +26,5 @@
 <br>
 <% path= @event==nil ? new_place_path : new_event_place_path  %>
 <%= link_to 'New Place', path %>
+
+<%= render '../layout/home_link', activity: @activity %>
