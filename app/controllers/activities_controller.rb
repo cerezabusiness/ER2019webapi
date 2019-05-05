@@ -1,10 +1,14 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_event
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    if @event != nil
+      @activities = @event.activities.all
+    else
+      @activities = Activity.all
+    end
   end
 
   # GET /activities/1
@@ -24,11 +28,29 @@ class ActivitiesController < ApplicationController
   # POST /activities
   # POST /activities.json
   def create
-    @activity = Activity.new(activity_params)
+    places_event = @event.places_events.where(place_id: activity_params[:place_id]).take
+    puts("params")
+    puts("place id :" + activity_params[:place_id].to_s)
+    puts("date id : " + activity_params[:event_date_id].to_s)
+    # puts( "start time:" + activity_params[:start_time])
+    # puts( "end time:" + activity_params[:end_time])
+    # puts( "place id :" + activity_params[:place_id])
+    # puts( "place id :" + activity_params[:place_id])
+
+    @activity = Activity.new
+
+    @activity.event_date_id = activity_params[:event_date_id]
+    @activity.name = activity_params[:name]
+    @activity.description = activity_params[:description]
+    @activity.start_time = activity_params[:start_time]
+    @activity.start_time = activity_params[:end_time]
+    @activity.places_event_id = places_event.id
+
+    redirect_to = [@event, @activity]
 
     respond_to do |format|
-      if @activity.save
-        format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
+      if @activity.save()
+        format.html { redirect_to redirect_to, notice: "Activity was successfully created." }
         format.json { render :show, status: :created, location: @activity }
       else
         format.html { render :new }
@@ -40,9 +62,14 @@ class ActivitiesController < ApplicationController
   # PATCH/PUT /activities/1
   # PATCH/PUT /activities/1.json
   def update
+    if @event != nil
+      redirect_to = [@event, @activity]
+    else
+      redirect_to = @activity
+    end
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
+        format.html { redirect_to redirect_to, notice: "Activity was successfully updated." }
         format.json { render :show, status: :ok, location: @activity }
       else
         format.html { render :edit }
@@ -56,19 +83,27 @@ class ActivitiesController < ApplicationController
   def destroy
     @activity.destroy
     respond_to do |format|
-      format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
+      format.html { redirect_to [@event, :activities], notice: "Activity was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = Activity.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def activity_params
-      params.require(:activity).permit(:name, :description, :date, :time_range_id, :places_event_id)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = Activity.find(params[:id])
+  end
+
+  def set_event
+    begin
+      @event = Event.find(params[:event_id])
+    rescue ActiveRecord::RecordNotFound
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def activity_params
+    params.require(:activity).permit(:place_id, :name, :description, :start_time, :end_time, :event_date_id, :places_event_id)
+  end
 end

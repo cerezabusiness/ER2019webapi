@@ -14,11 +14,12 @@ class ActivitiesTest < ApplicationSystemTestCase
     visit activities_url
     click_on "New Activity"
 
-    fill_in "Date", with: @activity.date
     fill_in "Description", with: @activity.description
+    fill_in "End time", with: @activity.end_time
+    fill_in "Event date", with: @activity.event_date_id
     fill_in "Name", with: @activity.name
     fill_in "Places event", with: @activity.places_event_id
-    fill_in "Time range", with: @activity.time_range_id
+    fill_in "Start time", with: @activity.start_time
     click_on "Create Activity"
 
     assert_text "Activity was successfully created"
@@ -29,11 +30,12 @@ class ActivitiesTest < ApplicationSystemTestCase
     visit activities_url
     click_on "Edit", match: :first
 
-    fill_in "Date", with: @activity.date
     fill_in "Description", with: @activity.description
+    fill_in "End time", with: @activity.end_time
+    fill_in "Event date", with: @activity.event_date_id
     fill_in "Name", with: @activity.name
     fill_in "Places event", with: @activity.places_event_id
-    fill_in "Time range", with: @activity.time_range_id
+    fill_in "Start time", with: @activity.start_time
     click_on "Update Activity"
 
     assert_text "Activity was successfully updated"

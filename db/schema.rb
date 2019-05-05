@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_161253) do
+ActiveRecord::Schema.define(version: 2019_05_05_055049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,13 +18,23 @@ ActiveRecord::Schema.define(version: 2019_04_26_161253) do
   create_table "activities", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.string "date"
-    t.bigint "time_range_id"
+    t.time "start_time"
+    t.time "end_time"
+    t.bigint "event_date_id"
     t.bigint "places_event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["event_date_id"], name: "index_activities_on_event_date_id"
     t.index ["places_event_id"], name: "index_activities_on_places_event_id"
-    t.index ["time_range_id"], name: "index_activities_on_time_range_id", unique: true
+  end
+
+  create_table "activities_people", force: :cascade do |t|
+    t.bigint "activity_id"
+    t.bigint "person_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_activities_people_on_activity_id"
+    t.index ["person_id"], name: "index_activities_people_on_person_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -130,15 +140,10 @@ ActiveRecord::Schema.define(version: 2019_04_26_161253) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "time_ranges", force: :cascade do |t|
-    t.time "start_time"
-    t.time "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+  add_foreign_key "activities", "event_dates"
   add_foreign_key "activities", "places_events"
-  add_foreign_key "activities", "time_ranges"
+  add_foreign_key "activities_people", "activities"
+  add_foreign_key "activities_people", "people"
   add_foreign_key "event_dates", "events"
   add_foreign_key "information", "events"
   add_foreign_key "multimedia", "events"

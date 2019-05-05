@@ -9,9 +9,8 @@ rails g scaffold information title content:text event:references
 rails g scaffold place name address city_id
 rails g model places_event place:references event:references
 rails g scaffold faq question:text answer:text
-rails g scaffold time_range start_time:time end_time:time
-rails g scaffold activity name description:text date time_range:references:uniq places_event:references
 rails g scaffold event_date date:date event:references
+rails g scaffold activity name description:text start_time:time end_time:time event_date:references places_event:references
 rails g model activities_person activity:references person:references
 
 rails d scaffold company 

@@ -1,4 +1,12 @@
-<%= form_with(model: place, local: true) do |form| %>
+
+<%if @event==nil%>
+    <%- model=place %>
+<%else%>
+    <%- model=[@event,place] %>
+<%end%>
+
+
+<%= form_with(model: model, local: true) do |form| %>
   <% if place.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>

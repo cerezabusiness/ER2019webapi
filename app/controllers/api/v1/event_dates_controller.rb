@@ -1,10 +1,13 @@
 class Api::V1::EventDatesController < ApplicationController
   before_action :set_event_date, only: [:show, :update, :destroy]
-
+  before_action :set_event
   # GET /event_dates
   def index
-    @event_dates = EventDate.all
-
+    if @event != nil
+      @event_dates = @event.event_dates.all
+    else
+      @event_dates = EventDate.all
+    end
     render json: @event_dates
   end
 
@@ -39,13 +42,21 @@ class Api::V1::EventDatesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event_date
-      @event_date = EventDate.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def event_date_params
-      params.require(:event_date).permit(:date, :event_id)
+  def set_event
+    begin
+      @event = Event.find(params[:event_id])
+    rescue ActiveRecord::RecrodNotFound
     end
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event_date
+    @event_date = EventDate.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def event_date_params
+    params.require(:event_date).permit(:date, :event_id)
+  end
 end

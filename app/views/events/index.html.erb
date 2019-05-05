@@ -21,6 +21,9 @@
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Lugares', [event,:places] %></td>
+        <td><%= link_to 'Actividades', [event,:activities] %></td>
+        <td><%= link_to 'Fechas', [event,:event_dates] %></td>
       </tr>
     <% end %>
   </tbody>

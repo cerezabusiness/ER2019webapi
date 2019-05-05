@@ -11,13 +11,18 @@
 </p>
 
 <p>
-  <strong>Date:</strong>
-  <%= @activity.date %>
+  <strong>Start time:</strong>
+  <%= @activity.start_time %>
 </p>
 
 <p>
-  <strong>Time range:</strong>
-  <%= @activity.time_range %>
+  <strong>End time:</strong>
+  <%= @activity.end_time %>
+</p>
+
+<p>
+  <strong>Event date:</strong>
+  <%= @activity.event_date %>
 </p>
 
 <p>
@@ -25,5 +30,5 @@
   <%= @activity.places_event %>
 </p>
 
-<%= link_to 'Edit', edit_activity_path(@activity) %> |
-<%= link_to 'Back', activities_path %>
+<%= link_to 'Edit', edit_polymorphic_path([@event,@activity]) %> |
+<%= link_to 'Back', event_activities_path %>

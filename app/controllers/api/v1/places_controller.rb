@@ -1,9 +1,13 @@
 class Api::V1::PlacesController < ApplicationController
   before_action :set_place, only: [:show, :update, :destroy]
-
+  befor_action :set_event
   # GET /places
   def index
-    @places = Place.all
+    if @event != nil
+      @places = @event.places.all
+    else
+      @places = Place.all
+    end
 
     render json: @places
   end
@@ -15,9 +19,12 @@ class Api::V1::PlacesController < ApplicationController
 
   # POST /places
   def create
-    @place = Place.new(place_params)
-
-    if @place.save
+    if @event != nil
+      @place = @event.places().create(place_params)
+    else
+      @place = Place.create(place_params)
+    end
+    if @place.valid?
       render json: @place, status: :created, location: @place
     else
       render json: @place.errors, status: :unprocessable_entity
@@ -39,13 +46,21 @@ class Api::V1::PlacesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_place
-      @place = Place.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def place_params
-      params.require(:place).permit(:name, :address, :city_id)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_place
+    @place = Place.find(params[:id])
+  end
+
+  def set_event
+    begin
+      @event = Event.find(params[:event_id])
+    rescue ActiveRecord::RecordNotFound
     end
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def place_params
+    params.require(:place).permit(:name, :address, :city_id)
+  end
 end

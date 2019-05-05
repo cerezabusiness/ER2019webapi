@@ -1,11 +1,13 @@
 class Api::V1::ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :update, :destroy]
-
+  before_action :set_event
   # GET /activities
   def index
-    @activities = Activity.all
-
-    render json: @activities
+    if @event != nil
+      @activities = @event.activities.all
+    else
+      @activities = Activity.all
+    end
   end
 
   # GET /activities/1
@@ -39,13 +41,21 @@ class Api::V1::ActivitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = Activity.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def activity_params
-      params.require(:activity).permit(:name, :description, :date, :time_range_id, :places_event_id)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = Activity.find(params[:id])
+  end
+
+  def set_event
+    begin
+      @event = Event.find(params[:event_id])
+    rescue ActiveRecord::RecordNotFound
     end
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def activity_params
+    params.require(:activity).permit(:name, :description, :date, :time_range_id, :places_event_id)
+  end
 end

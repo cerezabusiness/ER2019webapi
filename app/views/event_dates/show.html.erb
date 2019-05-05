@@ -10,5 +10,5 @@
   <%= @event_date.event %>
 </p>
 
-<%= link_to 'Edit', edit_event_date_path(@event_date) %> |
-<%= link_to 'Back', event_dates_path %>
+<%= link_to 'Edit', edit_polymorphic_path([@event,@event_date]) %> |
+<%= link_to 'Back', event_event_dates_path %>

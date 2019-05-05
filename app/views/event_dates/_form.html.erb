@@ -1,4 +1,4 @@
-<%= form_with(model: event_date, local: true) do |form| %>
+<%= form_with(model: [@event,event_date], local: true) do |form| %>
   <% if event_date.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(event_date.errors.count, "error") %> prohibited this event_date from being saved:</h2>

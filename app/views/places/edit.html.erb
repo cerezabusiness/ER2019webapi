@@ -2,5 +2,6 @@
 
 <%= render 'form', place: @place %>
 
-<%= link_to 'Show', @place %> |
-<%= link_to 'Back', places_path %>
+<%= link_to 'Show', @model %> |
+<% path= @event==nil ? places_path : event_places_path  %>
+<%= link_to 'Back', path %>
