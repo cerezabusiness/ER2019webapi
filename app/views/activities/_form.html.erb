@@ -41,7 +41,7 @@
   <% places_array=@event.places.map{|x| [x.name , x.id]}%>
   <div class="field">
     <%= form.label :place %>
-    <%= form.select(:place_id,places_array , :selected => @activity.places_event.place.id) %>
+    <%= form.select(:place_id,places_array , :selected => @activity.places_event !=nil ? @activity.places_event.place.id : nil ) %>
   </div>
 
   <div class="actions">
