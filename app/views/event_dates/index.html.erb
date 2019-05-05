@@ -15,7 +15,7 @@
     <% @event_dates.each do |event_date| %>
       <tr>
         <td><%= event_date.date %></td>
-        <td><%= event_date.event %></td>
+        <td><%= event_date.event.name %></td>
         <td><%= link_to 'Show', [@event,event_date] %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path([@event,event_date]) %></td>
         <td><%= link_to 'Destroy', [@event,event_date], method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -7,7 +7,7 @@
 
 <p>
   <strong>Event:</strong>
-  <%= @event_date.event %>
+  <%= @event_date.event.name %>
 </p>
 
 <%= link_to 'Edit', edit_polymorphic_path([@event,@event_date]) %> |
