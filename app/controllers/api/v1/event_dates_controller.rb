@@ -4,7 +4,7 @@ class Api::V1::EventDatesController < ApplicationController
   # GET /event_dates
   def index
     if @event != nil
-      @event_dates = @event.event_dates.all
+      @event_dates = @event.event_dates.order(:date)
     else
       @event_dates = EventDate.all
     end
