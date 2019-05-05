@@ -29,13 +29,6 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     places_event = @event.places_events.where(place_id: activity_params[:place_id]).take
-    puts("params")
-    puts("place id :" + activity_params[:place_id].to_s)
-    puts("date id : " + activity_params[:event_date_id].to_s)
-    # puts( "start time:" + activity_params[:start_time])
-    # puts( "end time:" + activity_params[:end_time])
-    # puts( "place id :" + activity_params[:place_id])
-    # puts( "place id :" + activity_params[:place_id])
 
     @activity = Activity.new
 
@@ -62,14 +55,18 @@ class ActivitiesController < ApplicationController
   # PATCH/PUT /activities/1
   # PATCH/PUT /activities/1.json
   def update
-    if @event != nil
-      redirect_to = [@event, @activity]
-    else
-      redirect_to = @activity
-    end
+    places_event = @event.places_events.where(place_id: activity_params[:place_id]).take
+
+    @activity.event_date_id = activity_params[:event_date_id]
+    @activity.name = activity_params[:name]
+    @activity.description = activity_params[:description]
+    @activity.start_time = activity_params[:start_time]
+    @activity.start_time = activity_params[:end_time]
+    @activity.places_event_id = places_event.id
+
     respond_to do |format|
-      if @activity.update(activity_params)
-        format.html { redirect_to redirect_to, notice: "Activity was successfully updated." }
+      if @activity.save()
+        format.html { redirect_to [@event, @activity], notice: "Activity was successfully updated." }
         format.json { render :show, status: :ok, location: @activity }
       else
         format.html { render :edit }

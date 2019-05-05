@@ -22,12 +22,17 @@
 
 <p>
   <strong>Event date:</strong>
-  <%= @activity.event_date %>
+  <%= @activity.event_date.date %>
 </p>
 
 <p>
-  <strong>Places event:</strong>
-  <%= @activity.places_event %>
+  <strong>Event:</strong>
+  <%= @activity.places_event.event.name %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @activity.places_event.place.name %>
 </p>
 
 <%= link_to 'Edit', edit_polymorphic_path([@event,@activity]) %> |
