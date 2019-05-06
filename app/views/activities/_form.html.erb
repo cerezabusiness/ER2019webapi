@@ -44,6 +44,12 @@
     <%= form.select(:place_id,places_array , :selected => @activity.places_event !=nil ? @activity.places_event.place.id : nil ) %>
   </div>
 
+  <% exhibitors=@event.people.map{|x| [x.name , x.id]}%>
+  <div class="field">
+    <%= form.label "Expositor principal" %>
+    <%= form.select(:person_id,exhibitors , :selected => !@activity.people.empty? ? @activity.people.take.id : nil ) %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

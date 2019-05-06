@@ -53,6 +53,8 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save()
+        person = Person.find(activity_params[:person_id])
+        @activity.people << person
         format.html { redirect_to redirect_to, notice: "Activity was successfully created." }
         format.json { render :show, status: :created, location: @activity }
       else
@@ -86,6 +88,12 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save()
+        person = Person.find(activity_params[:person_id])
+        if @activity.people.empty?
+          @activity.people << person
+        else
+          @activity.activities_people.take.update(person_id: person.id)
+        end
         format.html { redirect_to [@event, @activity], notice: "Activity was successfully updated." }
         format.json { render :show, status: :ok, location: @activity }
       else
@@ -121,6 +129,6 @@ class ActivitiesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def activity_params
-    params.require(:activity).permit(:place_id, :name, :description, :start_time, :end_time, :event_date_id, :places_event_id)
+    params.require(:activity).permit(:place_id, :person_id, :name, :description, :start_time, :end_time, :event_date_id, :places_event_id)
   end
 end

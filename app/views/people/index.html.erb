@@ -19,6 +19,7 @@
 
   <tbody>
     <% @people.each do |person| %>
+    <% model= @event==nil ? person : [@event,person]  %>
       <tr>
         <td><%= person.name %></td>
         <td><%= person.picture %></td>
@@ -28,14 +29,14 @@
         <td><%= person.city_id %></td>
         <td><%= person.company.name %></td>
         <td><%= person.title %></td>
-        <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', model %></td>
+        <td><%= link_to 'Edit', edit_polymorphic_path(model) %></td>
+        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Person', new_person_path %>
+<% path= @event == nil ? new_person_path : new_event_person_path %>
+<%= link_to 'New Person', path %>

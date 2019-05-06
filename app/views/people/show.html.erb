@@ -39,5 +39,8 @@
   <strong>Title:</strong>
   <%= @person.title %>
 </p>
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+
+
+<% path= @event == nil ? people_path : event_people_path %>
+<%= link_to 'Edit', edit_polymorphic_path(@model) %> |
+<%= link_to 'Back', path %>

@@ -35,5 +35,10 @@
   <%= @activity.places_event.place.name %>
 </p>
 
+<p>
+  <strong>Expositor principal:</strong>
+  <%= !@activity.people.empty? ? @activity.people.take.name : "no asignado" %>
+</p>
+
 <%= link_to 'Edit', edit_polymorphic_path([@event,@activity]) %> |
 <%= link_to 'Back', event_activities_path %>

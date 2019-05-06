@@ -1,11 +1,15 @@
 class Api::V1::PeopleController < ApplicationController
   before_action :set_person, only: [:show, :update, :destroy]
-
+  before_action :set_event
   # GET /people
   def index
-    @people = Person.all
+    if @event != nil
+      @people = @event.people.all
+    else
+      @people = Person.all
+    end
 
-    render json: @people,include: {:company=>{:only=>:name}}
+    render json: @people, include: { :company => { :only => :name } }
   end
 
   # GET /people/1
@@ -39,13 +43,20 @@ class Api::V1::PeopleController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_person
-      @person = Person.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def person_params
-      params.require(:person).permit(:name, :picture, :description, :phone, :email, :city_id, :company_id,:title)
+  def set_event
+    begin
+      @event=Event.find(params[:event_id])
+    rescue ActiveRecord:RecordNotFound      
     end
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_person
+    @person = Person.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def person_params
+    params.require(:person).permit(:name, :picture, :description, :phone, :email, :city_id, :company_id, :title)
+  end
 end

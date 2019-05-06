@@ -12,6 +12,7 @@
       <th>Event date</th>
       <th>Evento</th>
       <th>Lugar</th>
+      <th>Expositor principal</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
         <td><%= activity.event_date.date %></td>
         <td><%= activity.places_event.event.name %></td>
         <td><%= activity.places_event.place.name %></td>
+        <td><%= !activity.people.empty? ? activity.people.take.name : "no asignado" %></td>
         <td><%= link_to 'Show', [@event,activity] %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path([@event,activity]) %></td>
         <td><%= link_to 'Destroy', [@event,activity], method: :delete, data: { confirm: 'Are you sure?' } %></td>

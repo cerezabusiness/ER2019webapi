@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :places
     resources :activities
     resources :event_dates
+    resources :people
   end
   resources :companies
   namespace :api do
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
         resources :places
         resources :event_dates
         resources :activities
+        resources :people
       end
     end
   end
