@@ -46,10 +46,11 @@ class Api::V1::PeopleController < ApplicationController
 
   def set_event
     begin
-      @event=Event.find(params[:event_id])
-    rescue ActiveRecord:RecordNotFound      
+      @event = Event.find(params[:event_id])
+    rescue ActiveRecord::RecordNotFound
     end
   end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_person
     @person = Person.find(params[:id])
