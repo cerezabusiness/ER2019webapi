@@ -1,10 +1,11 @@
 class InformationController < ApplicationController
   before_action :set_information, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_event
+  before_action :set_model, only: [:show, :edit]
   # GET /information
   # GET /information.json
   def index
-    @information = Information.all
+    @information = @event != nil ? @event.information.all : Information.all
   end
 
   # GET /information/1
@@ -24,11 +25,11 @@ class InformationController < ApplicationController
   # POST /information
   # POST /information.json
   def create
-    @information = Information.new(information_params)
+    @information = @information = @event != nil ? @event.information.create(information_params) : Information.create(information_params)
 
     respond_to do |format|
-      if @information.save
-        format.html { redirect_to @information, notice: 'Information was successfully created.' }
+      if @information.valid?
+        format.html { redirect_to [@event, @information], notice: "Information was successfully created." }
         format.json { render :show, status: :created, location: @information }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class InformationController < ApplicationController
   def update
     respond_to do |format|
       if @information.update(information_params)
-        format.html { redirect_to @information, notice: 'Information was successfully updated.' }
+        format.html { redirect_to [@event, @information], notice: "Information was successfully updated." }
         format.json { render :show, status: :ok, location: @information }
       else
         format.html { render :edit }
@@ -56,19 +57,31 @@ class InformationController < ApplicationController
   def destroy
     @information.destroy
     respond_to do |format|
-      format.html { redirect_to information_index_url, notice: 'Information was successfully destroyed.' }
+      format.html { redirect_to [@event, :information_index], notice: "Information was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_information
-      @information = Information.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def information_params
-      params.require(:information).permit(:title, :content, :event_id)
+  def set_model
+    @model = @event == nil ? @place : [@event, @place]
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_information
+    @information = Information.find(params[:id])
+  end
+
+  def set_event
+    begin
+      @event = Event.find(params[:event_id])
+    rescue ActiveRecord::RecordNotFound
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def information_params
+    params.require(:information).permit(:title, :content, :event_id)
+  end
 end

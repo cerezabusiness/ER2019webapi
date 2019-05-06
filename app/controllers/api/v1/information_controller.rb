@@ -1,6 +1,6 @@
 class Api::V1::InformationController < ApplicationController
   before_action :set_information, only: [:show, :update, :destroy]
-
+  before_action :set_event
   # GET /information
   def index
     @information = Information.all
@@ -39,13 +39,14 @@ class Api::V1::InformationController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_information
-      @information = Information.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def information_params
-      params.require(:information).permit(:title, :content, :event_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_information
+    @information = Information.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def information_params
+    params.require(:information).permit(:title, :content, :event_id)
+  end
 end

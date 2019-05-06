@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :faqs
   resources :places
-  resources :information
+
   resources :multimedia
   resources :multimedia_types
   resources :people
@@ -12,13 +12,14 @@ Rails.application.routes.draw do
     resources :activities
     resources :event_dates
     resources :people
+    resources :information
   end
   resources :companies
   namespace :api do
     namespace :v1 do
       resources :faqs
       resources :places
-      resources :information
+
       resources :multimedia
       resources :multimedia_types
       resources :people
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
         resources :event_dates
         resources :activities
         resources :people
+        resources :information
       end
     end
   end

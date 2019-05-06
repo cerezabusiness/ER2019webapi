@@ -10,7 +10,10 @@ class Api::V1::EventsController < ApplicationController
 
   # GET /events/1
   def show
-    render json: @event
+    # render json: @event
+    respond_to do |format|
+      format.json { render :show, status: :ok }
+    end
   end
 
   # POST /events
@@ -39,13 +42,14 @@ class Api::V1::EventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def event_params
-      params.require(:event).permit(:name, :email, :phone)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event
+    @event = Event.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def event_params
+    params.require(:event).permit(:name, :email, :phone)
+  end
 end

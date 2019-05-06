@@ -15,5 +15,5 @@
   <%= @information.event.name %>
 </p>
 
-<%= link_to 'Edit', edit_information_path(@information) %> |
-<%= link_to 'Back', information_index_path %>
+<%= link_to 'Edit', edit_polymorphic_path(@model) %> |
+<%= link_to 'Back', event_information_index_path %>

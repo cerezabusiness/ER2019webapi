@@ -68,10 +68,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  def set_model
-    @model = @event == nil ? @place : [@event, @place]
-  end
-
   # DELETE /people/1
   # DELETE /people/1.json
   def destroy
@@ -84,6 +80,10 @@ class PeopleController < ApplicationController
   end
 
   private
+
+  def set_model
+    @model = @event == nil ? @place : [@event, @place]
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_person
