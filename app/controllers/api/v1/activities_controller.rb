@@ -8,7 +8,10 @@ class Api::V1::ActivitiesController < ApplicationController
     else
       @activities = Activity.all
     end
-    render json: @activities, include: { :event_date => { :only => :date } }
+    #render json: @activities, include: { :event_date => { :only => :date } }
+    respond_to do |format|
+      format.json { render :index, status: :ok }
+    end
   end
 
   # GET /activities/1
