@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
       resources :multimedia
       resources :multimedia_types
-      resources :people
+      # resources :people
       resources :profiles
       resources :events
       resources :companies

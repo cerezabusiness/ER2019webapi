@@ -1,4 +1,5 @@
 class Api::V1::PeopleController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create]
   before_action :set_person, only: [:show, :update, :destroy]
   before_action :set_event
   # GET /people
@@ -19,9 +20,19 @@ class Api::V1::PeopleController < ApplicationController
 
   # POST /people
   def create
-    @person = Person.new(person_params)
+    @person = Person.new
+    company_id = person_params[:company_id]
+    if company_id < 1
+      company = Company.create(name: person_params[:company_name])
+      company_id = company.id
+    end
+    @person.name = person_params[:name]
+    @person.email = person_params[:email]
+    @person.company_id = person_params[:company_id]
+    @person.phone = person_params[:phone]
 
     if @person.save
+      @person.persons_events.where(event_id: @event.id).take.update(profile_id: 1)
       render json: @person, status: :created, location: @person
     else
       render json: @person.errors, status: :unprocessable_entity
@@ -58,6 +69,6 @@ class Api::V1::PeopleController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def person_params
-    params.require(:person).permit(:name, :picture, :description, :phone, :email, :city_id, :company_id, :title)
+    params.require(:person).permit(:name, :picture, :description, :phone, :email, :company_name, :city_id, :company_id, :title)
   end
 end
