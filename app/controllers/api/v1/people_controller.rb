@@ -30,9 +30,8 @@ class Api::V1::PeopleController < ApplicationController
     @person.email = person_params[:email]
     @person.company_id = person_params[:company_id]
     @person.phone = person_params[:phone]
-
+    PersonsEvent.create(profile_id: 1, person: @person, event: @event)
     if @person.save
-      @person.persons_events.where(event_id: @event.id).take.update(profile_id: 1)
       render json: @person, status: :created, location: @person
     else
       render json: @person.errors, status: :unprocessable_entity
