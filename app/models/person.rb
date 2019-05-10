@@ -1,5 +1,5 @@
 class Person < ApplicationRecord
-  belongs_to :company
+  belongs_to :company, optional: true
   has_many :persons_events
   has_many :events, through: :persons_events
   has_many :profiles, through: :persons_events

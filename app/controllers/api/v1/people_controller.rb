@@ -20,15 +20,18 @@ class Api::V1::PeopleController < ApplicationController
 
   # POST /people
   def create
+    # render plain: person_params[:company_name], status: :created
     @person = Person.new
     company_id = person_params[:company_id]
     if company_id < 1
-      company = Company.create(name: person_params[:company_name])
+      company = Company.new
+      company.name = person_params[:company_name]
+      company.save()
       company_id = company.id
     end
     @person.name = person_params[:name]
     @person.email = person_params[:email]
-    @person.company_id = person_params[:company_id]
+    @person.company_id = company_id
     @person.phone = person_params[:phone]
     PersonsEvent.create(profile_id: 1, person: @person, event: @event)
     if @person.save
@@ -68,6 +71,6 @@ class Api::V1::PeopleController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def person_params
-    params.require(:person).permit(:name, :picture, :description, :phone, :email, :company_name, :city_id, :company_id, :title)
+    params.permit(:name, :picture, :company_name, :description, :phone, :email, :city_id, :company_id, :title)
   end
 end
