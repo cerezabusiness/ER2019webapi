@@ -31,7 +31,7 @@
         <td><%= person.title %></td>
         <td><%= link_to 'Show', model %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path(model) %></td>
-        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
