@@ -82,7 +82,7 @@ class PeopleController < ApplicationController
   private
 
   def set_model
-    @model = @event == nil ? @place : [@event, @place]
+    @model = @event == nil ? @person : [@event, @person]
   end
 
   # Use callbacks to share common setup or constraints between actions.
