@@ -1,5 +1,5 @@
 class Api::V1::PeopleController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
+  skip_before_action :verify_authenticity_token, only: [:create, :addFriend]
   before_action :set_person, only: [:show, :update, :destroy]
   before_action :set_event
   # GET /people
@@ -55,6 +55,31 @@ class Api::V1::PeopleController < ApplicationController
     @person.destroy
   end
 
+  def addFriend
+    if Friendship.where(friend1: params[:friend1_id], friend2: params[:friend2_id]).empty?
+      
+      if Friendship.where(friend2: params[:friend1_id], friend1: params[:friend2_id]).empty?
+        render json: Friendship.create(friend1: params[:friend1_id], friend2: params[:friend2_id])
+        return 
+      end
+    end
+
+    render json: {message: "ya son amigos"}
+  end
+
+  def getFriends
+    @person =Person.find(params[:id])
+    @result = []
+    @person.friends.map do |item|
+      @result<<item
+    end
+    Friendship.where(friend2: @person.id).map do |item|
+       @result << Person.find(item.friend1)
+    end
+    puts 'type of result ' + @result.class.to_s
+    render json: @result
+  end
+
   private
 
   def set_event
@@ -71,6 +96,6 @@ class Api::V1::PeopleController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def person_params
-    params.permit(:name, :picture, :company_name, :description, :phone, :email, :city_id, :company_id, :title)
+    params.permit(:name, :picture, :company_name, :description, :phone, :email, :city_id,:company_id, :title, :friend1_id, :friend2_id)
   end
 end

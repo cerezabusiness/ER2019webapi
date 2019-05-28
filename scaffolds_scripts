@@ -12,7 +12,9 @@ rails g scaffold faq question:text answer:text
 rails g scaffold event_date date:date event:references
 rails g scaffold activity name description:text start_time:time end_time:time event_date:references places_event:references
 rails g model activities_person activity:references person:references
-
+rails g model friendship friend1:integer friend2:integer
+rails g migration addForeignKeysToFriendship
+rails g model checkin person:references event_date:references
 rails d scaffold company 
 rails d scaffold event 
 rails d scaffold profile 
@@ -28,3 +30,5 @@ rails d scaffold time_range
 rails d scaffold activity 
 rails d scaffold event_date 
 rails d model activities_person
+rails d model friendship
+rails d migration addForeignKeysToFriendship

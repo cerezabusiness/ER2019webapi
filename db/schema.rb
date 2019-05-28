@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_05_055049) do
+ActiveRecord::Schema.define(version: 2019_05_27_224704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 2019_05_05_055049) do
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_activities_people_on_activity_id"
     t.index ["person_id"], name: "index_activities_people_on_person_id"
+  end
+
+  create_table "checkins", force: :cascade do |t|
+    t.bigint "person_id"
+    t.bigint "event_date_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_date_id"], name: "index_checkins_on_event_date_id"
+    t.index ["person_id"], name: "index_checkins_on_person_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -62,6 +71,13 @@ ActiveRecord::Schema.define(version: 2019_05_05_055049) do
   create_table "faqs", force: :cascade do |t|
     t.text "question"
     t.text "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "friend1"
+    t.integer "friend2"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -144,7 +160,11 @@ ActiveRecord::Schema.define(version: 2019_05_05_055049) do
   add_foreign_key "activities", "places_events"
   add_foreign_key "activities_people", "activities"
   add_foreign_key "activities_people", "people"
+  add_foreign_key "checkins", "event_dates"
+  add_foreign_key "checkins", "people"
   add_foreign_key "event_dates", "events"
+  add_foreign_key "friendships", "people", column: "friend1", on_delete: :cascade
+  add_foreign_key "friendships", "people", column: "friend2", on_delete: :cascade
   add_foreign_key "information", "events"
   add_foreign_key "multimedia", "events"
   add_foreign_key "multimedia", "multimedia_types"

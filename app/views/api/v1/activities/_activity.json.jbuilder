@@ -1,4 +1,6 @@
-json.extract! activity, :id, :name, :description, :start_time, :end_time, :event_date_id, :places_event_id, :created_at, :updated_at
+json.extract! activity, :id, :name, :description, :event_date_id, :places_event_id, :created_at, :updated_at
+json.start_time activity.start_time.strftime('%Y-%m-%dT%H:%M:%S.%L%z')
+json.end_time activity.end_time.strftime('%Y-%m-%dT%H:%M:%S.%L%z')
 json.event_date do
   json.date activity.event_date.date
 end
