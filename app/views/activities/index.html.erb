@@ -30,7 +30,7 @@
         <td><%= !activity.people.empty? ? activity.people.take.name : "no asignado" %></td>
         <td><%= link_to 'Show', [@event,activity] %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path([@event,activity]) %></td>
-        <td><%= link_to 'Destroy', [@event,activity], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Destroy', [@event,activity], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
