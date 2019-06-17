@@ -1,4 +1,4 @@
-<%= form_with(model: multimedium, local: true) do |form| %>
+<%= form_with(model: [@event,multimedium], local: true) do |form| %>
   <% if multimedium.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(multimedium.errors.count, "error") %> prohibited this multimedium from being saved:</h2>
@@ -21,14 +21,10 @@
     <%= form.text_field :url %>
   </div>
 
+  <% types_array= multimedia_types.map{|x| [x.multimedia_type , x.id]}%>
   <div class="field">
     <%= form.label :multimedia_type_id %>
-    <%= form.text_field :multimedia_type_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :event_id %>
-    <%= form.text_field :event_id %>
+    <%= form.select(:multimedia_type_id,types_array , :selected => multimedium.multimedia_type_id !=nil ? multimedium.multimedia_type_id : nil ) %>
   </div>
 
   <div class="actions">

@@ -1,6 +1,6 @@
 <h1>Editing Multimedium</h1>
 
-<%= render 'form', multimedium: @multimedium %>
+<%= render 'form', multimedium: @multimedium, multimedia_types: @multimedia_types %>
 
-<%= link_to 'Show', @multimedium %> |
-<%= link_to 'Back', multimedia_path %>
+<%= link_to 'Show', [@event,@multimedium] %> |
+<%= link_to 'Back', event_multimedia_path %>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :faqs
   resources :places
 
-  resources :multimedia
+  
   resources :multimedia_types
   resources :people
   resources :profiles
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :event_dates
     resources :people
     resources :information
+    resources :multimedia
   end
   resources :companies
   namespace :api do
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
       resources :faqs
       resources :places
 
-      resources :multimedia
+      
       resources :multimedia_types
       # resources :people
       resources :profiles
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
         resources :activities
         resources :people
         resources :information
+        resources :multimedia
       end
       post '/friendships', to: 'people#addFriend', as: 'new_friendship'
       get '/friendships/:id', to: 'people#getFriends'

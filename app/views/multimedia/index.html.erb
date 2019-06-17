@@ -18,11 +18,11 @@
       <tr>
         <td><%= multimedium.name %></td>
         <td><%= multimedium.url %></td>
-        <td><%= multimedium.multimedia_type %></td>
-        <td><%= multimedium.event %></td>
-        <td><%= link_to 'Show', multimedium %></td>
-        <td><%= link_to 'Edit', edit_multimedium_path(multimedium) %></td>
-        <td><%= link_to 'Destroy', multimedium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= multimedium.multimedia_type.multimedia_type %></td>
+        <td><%= multimedium.event.name %></td>
+        <td><%= link_to 'Show', [@event,multimedium] %></td>
+        <td><%= link_to 'Edit', edit_polymorphic_path([@event,multimedium]) %></td>
+        <td><%= link_to 'Destroy', [@event,multimedium], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Multimedium', new_multimedium_path %>
+<%= link_to 'New Multimedium', new_event_multimedium_path %>

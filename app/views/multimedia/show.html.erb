@@ -12,13 +12,13 @@
 
 <p>
   <strong>Multimedia type:</strong>
-  <%= @multimedium.multimedia_type %>
+  <%= @multimedium.multimedia_type.multimedia_type %>
 </p>
 
 <p>
   <strong>Event:</strong>
-  <%= @multimedium.event %>
+  <%= @multimedium.event.name %>
 </p>
 
-<%= link_to 'Edit', edit_multimedium_path(@multimedium) %> |
-<%= link_to 'Back', multimedia_path %>
+<%= link_to 'Edit', edit_polymorphic_path([@event,@multimedium]) %> |
+<%= link_to 'Back', event_multimedia_path %>

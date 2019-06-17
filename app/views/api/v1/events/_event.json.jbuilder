@@ -11,4 +11,7 @@ end
 json.information event.information do |info|
   json.partial! "api/v1/information/information", information: info
 end
+json.multimedia event.multimedia do |multimedium|
+  json.partial! "api/v1/multimedia/multimedium", multimedium: multimedium
+end
 json.url api_v1_event_url(event, format: :json)

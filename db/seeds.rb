@@ -6,5 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Profile.create(profile:'Guests')
-Profile.create(profile:'Exhibitor')
+#Profile.create(profile:'Guests')
+#Profile.create(profile:'Exhibitor')
+MultimediaType.create(
+    multimedia_type:'Video'
+)
+MultimediaType.create(
+    multimedia_type:'Picture'
+)
