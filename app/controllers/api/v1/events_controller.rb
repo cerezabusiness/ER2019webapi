@@ -43,7 +43,9 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def postMessage
+    puts "env gmail: " + ENV["GMAIL_USERNAME"].to_s 
     #falta por hacer
+    MessageMailer.consultation_mail(params[:name],params[:email],params[:consultation]).deliver_now
     render json: {operation: 1}
   end
 
@@ -56,6 +58,6 @@ class Api::V1::EventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def event_params
-    params.require(:event).permit(:name, :email, :phone)
+    params.permit(:name, :email, :phone,:consultation)
   end
 end
