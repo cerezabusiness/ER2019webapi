@@ -1,4 +1,5 @@
 class Api::V1::EventsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:postMessage]
   before_action :set_event, only: [:show, :update, :destroy]
 
   # GET /events
@@ -39,6 +40,11 @@ class Api::V1::EventsController < ApplicationController
   # DELETE /events/1
   def destroy
     @event.destroy
+  end
+
+  def postMessage
+    #falta por hacer
+    render json: {operation: 1}
   end
 
   private

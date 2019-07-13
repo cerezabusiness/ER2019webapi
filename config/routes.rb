@@ -34,9 +34,11 @@ Rails.application.routes.draw do
         resources :people
         resources :information
         resources :multimedia
+        post '/message', to: 'events#postMessage'
       end
       post '/friendships', to: 'people#addFriend', as: 'new_friendship'
       get '/friendships/:id', to: 'people#getFriends'
+      
     end
   end
   root to: "events#index"
