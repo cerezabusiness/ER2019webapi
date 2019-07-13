@@ -5,10 +5,10 @@ class MessageMailer < ApplicationMailer
   #
   #   en.message_mailer.consultation_mail.subject
   #
-  def consultation_mail(name, email, consultation)
+  def consultation_mail(name, email, consultation,destination)
     @username = name
     @consultation = consultation
     @email = email
-    mail(to: "leonardoraulinero@gmail.com", subject: "Tienes una nueva consulta en tu evento")
+    mail(to: destination, subject: "Tienes una nueva consulta en tu evento")
   end
 end

@@ -43,9 +43,10 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def postMessage
-    puts "env gmail: " + ENV["GMAIL_USERNAME"].to_s 
+    puts "env gmail: " + ENV["GMAIL_USERNAME"].to_s
+    @event = Event.find(params[:event_id])
     #falta por hacer
-    MessageMailer.consultation_mail(params[:name],params[:email],params[:consultation]).deliver_now
+    MessageMailer.consultation_mail(params[:name],params[:email],params[:consultation],@event.email).deliver_now
     render json: {operation: 1}
   end
 
