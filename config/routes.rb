@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/version', to: 'events#getVersion'
   resources :faqs
   resources :places
 

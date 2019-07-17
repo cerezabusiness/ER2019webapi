@@ -61,6 +61,10 @@ class EventsController < ApplicationController
     end
   end
 
+  def getVersion
+    render json: {version: 5}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
