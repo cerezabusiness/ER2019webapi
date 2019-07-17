@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   end
 
   def getVersion
-    render json: {version: 5}
+    render json: {version: 4}
   end
 
   private
